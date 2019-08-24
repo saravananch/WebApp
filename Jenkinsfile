@@ -1,5 +1,5 @@
 pipeline {
-    agent ABC
+	agent {label 'ABC' }
     stages {
         stage('Git') {
             steps { git 'https://github.com/saravananch/WebApp.git' }
