@@ -15,7 +15,7 @@ pipeline {
             }
             steps {
                 script {
-                    app = docker.build("saravananch/WebApp")
+                    app = docker.build("saravananch/mydocker")
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
                     }
