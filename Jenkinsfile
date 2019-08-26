@@ -17,7 +17,7 @@ pipeline {
                 script {
                     app = docker.build("saravananch/mydocker")
                     app.inside {
-                        sh 'echo $(curl localhost:8080)'
+                        sh 'echo $(curl http://ec2-13-127-161-114.ap-south-1.compute.amazonaws.com:7070)'
                     }
                 }
             }
