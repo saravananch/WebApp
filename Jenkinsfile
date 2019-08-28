@@ -43,8 +43,9 @@ pipeline {
                 input 'Deploy to Production?'
                 milestone(1)
                 withCredentials([usernamePassword(credentialsId: 'GoogleCloudOsUser', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
+			withCredentials([file(credentialsId: 'GoogleCloudOsUser', variable: 'FILE')]) {
 			dir('/scratch/jenkins/') {
-      			sh 'use googlecloudprivatekey'
+      			sh 'use $FILE'
     			}
                     script {
                         sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker pull saravananch/mydocker:${env.BUILD_NUMBER}\""
