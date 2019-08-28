@@ -42,7 +42,7 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                 milestone(1)
-                withCredentials([usernamePassword(credentialsId: 'GoogleCloudOsUser', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
+               // withCredentials([usernamePassword(credentialsId: 'GoogleCloudOsUser', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
 			withCredentials([file(credentialsId: 'GoogleCloudOsUser', variable: 'FILE')]) {
 			dir('/scratch/jenkins/') {
       			sh 'use $FILE'
