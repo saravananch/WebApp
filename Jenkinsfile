@@ -53,7 +53,7 @@ pipeline {
 				usernameVariable: 'googleCloudUserName')]){
 				
                     script {
-                        sh "sshpass  -v ssh -o StrictHostKeyChecking=no $googleCloudUserName@$prod_ip \"docker pull saravananch/mydocker:${env.BUILD_NUMBER}\""
+                        sh "sshpass  -v ssh -i ${keyFileVariable} -o StrictHostKeyChecking=no $googleCloudUserName@$prod_ip \"docker pull saravananch/mydocker:${env.BUILD_NUMBER}\""
                         try {
                             sh "sshpass  -v ssh -o StrictHostKeyChecking=no $googleCloudUserName@$prod_ip \"docker stop mydocker\""
                             sh "sshpass -v ssh -o StrictHostKeyChecking=no $googleCloudUserName@$prod_ip \"docker rm mydocker\""
