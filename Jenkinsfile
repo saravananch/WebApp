@@ -53,14 +53,14 @@ pipeline {
 				usernameVariable: 'googleCloudUserName')]){
 				
                     script {
-                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker pull saravananch/mydocker:${env.BUILD_NUMBER}\""
+                        sh "sshpass  -v ssh -o StrictHostKeyChecking=no $googleCloudUserName@$prod_ip \"docker pull saravananch/mydocker:${env.BUILD_NUMBER}\""
                         try {
-                            sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker stop mydocker\""
-                            sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker rm mydocker\""
+                            sh "sshpass  -v ssh -o StrictHostKeyChecking=no $googleCloudUserName@$prod_ip \"docker stop mydocker\""
+                            sh "sshpass -v ssh -o StrictHostKeyChecking=no $googleCloudUserName@$prod_ip \"docker rm mydocker\""
                         } catch (err) {
                             echo: 'caught error: $err'
                         }
-                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker run --restart always --name mydocker -p 9191:8080 -d saravananch/mydocker:${env.BUILD_NUMBER}\""
+                        sh "sshpass  -v ssh -o StrictHostKeyChecking=no $googleCloudUserName@$prod_ip \"docker run --restart always --name mydocker -p 9191:8080 -d saravananch/mydocker:${env.BUILD_NUMBER}\""
                     }
                 }
             }
