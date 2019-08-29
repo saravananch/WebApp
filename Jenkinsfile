@@ -47,6 +47,11 @@ pipeline {
 			dir('/scratch/jenkins/') {
       			sh 'use $FILE'
     			}
+			withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'GoogleCloudOsUser', \
+                              keyFileVariable: 'GoogleCloudOsUser', \
+                              passphraseVariable: 'googleCloudPassPhrase', \
+                              usernameVariable: 'googleCloudUserName')])
+				
                     script {
                         sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker pull saravananch/mydocker:${env.BUILD_NUMBER}\""
                         try {
